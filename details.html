@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Details</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #eef2f3; margin: 0; padding-bottom: 50px; }
+        .header { background: #34495e; color: white; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; }
+        .prev-btn { position: absolute; top: 25px; right: 20px; padding: 10px 20px; border-radius: 5px; background: #7f8c8d; color: white; border: none; cursor: pointer; }
+        
+        .container { max-width: 900px; margin: 30px auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h2 { border-bottom: 2px solid #3498db; padding-bottom: 10px; color: #2c3e50; margin-top: 30px; }
+        
+        .input-group { margin-bottom: 20px; }
+        label { display: block; font-weight: bold; margin-bottom: 8px; font-size: 1.1rem; color: #333; }
+        input, textarea { width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
+        input:focus, textarea:focus { border-color: #3498db; outline: none; }
+        
+        .gen-btn { background: #27ae60; color: white; padding: 20px; width: 100%; border: none; cursor: pointer; font-size: 1.3rem; font-weight: bold; border-radius: 8px; margin-top: 40px; transition: 0.3s; }
+        .gen-btn:hover { background: #219150; transform: scale(1.01); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Fill Your Professional Details</h1>
+        <button class="prev-btn" onclick="location.href='/templates'">Previous</button>
+    </div>
+
+    <div class="container">
+        <form id="resumeForm">
+            <h2>Personal Information</h2>
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" id="name" placeholder="E.g. Rajesh Kumar" required>
+            </div>
+            <div class="input-group">
+                <label>Job Title</label>
+                <input type="text" id="title" placeholder="E.g. Software Engineer">
+            </div>
+            <div style="display: flex; gap: 20px;">
+                <div class="input-group" style="flex: 1;">
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="rajesh@email.com" required>
+                </div>
+                <div class="input-group" style="flex: 1;">
+                    <label>Phone</label>
+                    <input type="text" id="phone" placeholder="+91 9876543210">
+                </div>
+            </div>
+
+            <h2>Experience & Projects</h2>
+            <label>Work Experience (Detailed)</label>
+            <textarea id="experience" rows="6" placeholder="Describe your roles and responsibilities..."></textarea>
+
+            <label>Key Projects</label>
+            <textarea id="projects" rows="5" placeholder="Project names and what you did..."></textarea>
+
+            <h2>Education & Skills</h2>
+            <label>Education History</label>
+            <textarea id="education" rows="4" placeholder="College/School, Degree, Percentage..."></textarea>
+            
+            <label>Technical Skills</label>
+            <input type="text" id="skills" placeholder="Java, Python, React, Node.js (Separate with commas)">
+
+            <button type="button" class="gen-btn" onclick="saveAndGo()">GENERATE MY RESUME</button>
+        </form>
+    </div>
+
+    <script>
+        function saveAndGo() {
+            const details = {
+                name: document.getElementById('name').value,
+                title: document.getElementById('title').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                experience: document.getElementById('experience').value,
+                projects: document.getElementById('projects').value,
+                education: document.getElementById('education').value,
+                skills: document.getElementById('skills').value
+            };
+            localStorage.setItem('resumeData', JSON.stringify(details));
+            location.href = '/preview';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register | Resume Pro</title>
+    <style>
+        /* Same theme as login for professional feel */
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #040a14, #040c18); height: 100vh; display: flex; justify-content: center; align-items: center; }
+        .reg-box { background: #585757; backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(244, 238, 238, 0.3); border: 1px solid rgba(255,255,255,0.2); width: 400px; text-align: center; color: white; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: none; border-radius: 8px; background: rgba(11, 1, 1, 0.2); color: white; box-sizing: border-box; outline: none; }
+        input::placeholder { color: #f7f4f4; font-size: 1.0rem;}
+        button { width: 100%; padding: 15px; margin-top: 15px; border: none; border-radius: 8px; background: #00f2fe; color: #0b121a; font-weight: bold; cursor: pointer; font-size: 1.0rem; transition: 0.3s; }
+        button:hover { background: #4facfe; }
+        a { color: #00f2fe; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="reg-box">
+        <h2>CREATE ACCOUNT</h2>
+        <form action="/register" method="POST">
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email Address" required>
+            <input type="password" placeholder="Create Password" required>
+            <input type="password" placeholder="Confirm Password" required>
+            <button type="submit">SIGN UP</button>
+        </form>
+        <p style="font-size: 1.2rem; margin-top: 20px;">Already have an account? <a href="/">Login</a></p>
+    </div>
+</body>
+</html>

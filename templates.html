@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Premium Template</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #f8f9fa; margin: 0; padding: 20px; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: auto; }
+        
+        .card { 
+            background: white; border-radius: 12px; overflow: hidden; cursor: pointer; 
+            transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 2px solid transparent;
+            height: 350px; display: flex; flex-direction: column;
+        }
+        .card:hover { transform: translateY(-10px); border-color: #4a90e2; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        
+        /* Visual Preview Styles */
+        .preview { flex-grow: 1; position: relative; padding: 10px; background: #fff; overflow: hidden; }
+        
+        /* Layout 1: Dark Sidebar */
+        .preview.sidebar-style { background: linear-gradient(to right, #2c3e50 30%, #fff 30%); }
+        /* Layout 2: Top Header */
+        .preview.header-style { border-top: 15px solid #e67e22; }
+        /* Layout 3: Minimalist Center */
+        .preview.minimal-style { display: flex; flex-direction: column; align-items: center; }
+        /* Layout 4: Modern Blue */
+        .preview.modern-blue { background: linear-gradient(to bottom, #3498db 20%, #fff 20%); }
+        /* Layout 5: Two Column (Right Sidebar) */
+        .preview.right-sidebar { background: linear-gradient(to left, #ecf0f1 30%, #fff 30%); }
+
+        .dummy-line { height: 6px; background: #eee; margin-bottom: 8px; border-radius: 3px; }
+        .dummy-name { height: 12px; background: #ccc; width: 60%; margin-bottom: 15px; }
+
+        .card-footer { padding: 15px; text-align: center; font-weight: 600; background: #fdfdfd; border-top: 1px solid #eee; }
+        .prev-btn { position: fixed; top: 20px; right: 20px; padding: 10px 20px; background: #333; color: white; border-radius: 5px; cursor: pointer; border: none; }
+    </style>
+</head>
+<body>
+    <button class="prev-btn" onclick="history.back()">Previous</button>
+    <div class="header">
+        <h1>Select a Layout</h1>
+        <p></p>
+    </div>
+
+    <div class="grid" id="templateGrid">
+        </div>
+
+    <script>
+        const grid = document.getElementById('templateGrid');
+        
+        // Defining 10 unique configurations
+        const configs = [
+            { name: "Executive Dark", class: "sidebar-style" },
+            { name: "Creative Orange", class: "header-style" },
+            { name: "Minimalist Pro", class: "minimal-style" },
+            { name: "Modern Corporate", class: "modern-blue" },
+            { name: "Technical Split", class: "right-sidebar" },
+            { name: "Luxury Gold", class: "header-style", color: "#d4af37" },
+            { name: "Clean Slate", class: "minimal-style" },
+            { name: "Dev Focus", class: "sidebar-style", color: "#27ae60" },
+            { name: "Simple Classic", class: "header-style", color: "#333" },
+            { name: "Innovative Edge", class: "modern-blue", color: "#9b59b6" }
+        ];
+
+        configs.forEach((conf, i) => {
+            let customStyle = conf.color ? `style="border-top-color: ${conf.color}; background: ${conf.class.includes('sidebar') ? 'linear-gradient(to right, '+conf.color+' 30%, #fff 30%)' : ''}"` : "";
+            
+            grid.innerHTML += `
+                <div class="card" onclick="selectTemplate(${i+1})">
+                    <div class="preview ${conf.class}" ${customStyle}>
+                        <div class="dummy-name"></div>
+                        <div class="dummy-line" style="width: 80%"></div>
+                        <div class="dummy-line" style="width: 90%"></div>
+                        <div class="dummy-line" style="width: 70%"></div>
+                        <div class="dummy-line" style="width: 85%"></div>
+                    </div>
+                    <div class="card-footer">${conf.name}</div>
+                </div>`;
+        });
+
+        function selectTemplate(id) {
+            localStorage.setItem('selectedTemplate', id);
+            location.href = '/details';
+        }
+    </script>
+</body>
+</html>

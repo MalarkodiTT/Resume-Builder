@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Professional Resume Preview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #525659; margin: 0; padding: 40px 0; display: flex; flex-direction: column; align-items: center; font-family: 'Roboto', sans-serif; }
+        #resume-paper { width: 210mm; min-height: 297mm; background: white; box-shadow: 0 0 20px rgba(0,0,0,0.5); box-sizing: border-box; overflow: hidden; position: relative; }
+        
+        /* Layout Styles */
+        .sidebar-layout { display: grid; grid-template-columns: 35% 65%; min-height: 297mm; }
+        .left-panel { padding: 40px 25px; color: white; word-wrap: break-word; }
+        .right-panel { padding: 50px; }
+        
+        .section-title { border-bottom: 2px solid #333; margin-top: 25px; padding-bottom: 5px; font-weight: bold; text-transform: uppercase; font-size: 1.1rem; }
+        .left-panel .section-title { border-color: rgba(255,255,255,0.3); margin-top: 35px; }
+
+        h1 { margin: 0; font-family: 'Montserrat'; font-size: 2.2rem; text-transform: uppercase; line-height: 1.2; }
+        .contact-info { font-size: 0.9rem; margin-top: 10px; line-height: 1.5; opacity: 0.9; }
+        p { white-space: pre-wrap; line-height: 1.6; font-size: 1rem; color: #333; }
+        .left-panel p { color: white; opacity: 0.9; }
+
+        /* Buttons */
+        .no-print { position: fixed; bottom: 20px; z-index: 100; }
+        .dl-btn { background: #27ae60; color: white; padding: 15px 40px; border-radius: 50px; border: none; font-size: 1.2rem; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .back-btn { position: fixed; top: 20px; right: 20px; background: #e74c3c; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; z-index: 1000; }
+        
+        @media print { .no-print, .back-btn { display: none; } body { background: white; padding: 0; } #resume-paper { box-shadow: none; width: 100%; } }
+    </style>
+</head>
+<body>
+    <button class="back-btn no-print" onclick="history.back()">← Back to Details</button>
+    
+    <div id="resume-paper">
+        </div>
+
+    <div class="no-print">
+        <button class="dl-btn" onclick="window.print()">Download Premium PDF</button>
+    </div>
+
+    <script>
+        const data = JSON.parse(localStorage.getItem('resumeData'));
+        const tid = localStorage.getItem('selectedTemplate') || '1';
+        const paper = document.getElementById('resume-paper');
+
+        // Styles database
+        const themes = {
+            '1': { bg: '#2c3e50', type: 'sidebar' },
+            '2': { bg: '#e74c3c', type: 'sidebar' },
+            '3': { bg: '#27ae60', type: 'sidebar' }, // Unga Green Template
+            '4': { bg: '#8e44ad', type: 'sidebar' },
+            '5': { bg: '#d35400', type: 'sidebar' },
+            '6': { bg: '#2980b9', type: 'topbar' },
+            '7': { bg: '#34495e', type: 'topbar' },
+            '8': { bg: '#333333', type: 'minimal' },
+            '9': { bg: '#c0392b', type: 'topbar' },
+            '10': { bg: '#2c3e50', type: 'topbar' }
+        };
+
+        const theme = themes[tid] || themes['1'];
+
+        if(theme.type === 'sidebar') {
+            paper.innerHTML = `
+                <div class="sidebar-layout">
+                    <div class="left-panel" style="background: ${theme.bg}">
+                        <h1>${data.name}</h1>
+                        <div class="contact-info">
+                            ${data.email}<br>
+                            ${data.phone}
+                        </div>
+                        
+                        <div class="section-title">Skills</div>
+                        <p>${data.skills}</p>
+                        
+                        <div class="section-title">Education</div>
+                        <p>${data.education}</p>
+                    </div>
+                    <div class="right-panel">
+                        <div class="section-title" style="margin-top: 0;">Experience</div>
+                        <p>${data.experience}</p>
+                        
+                        <div class="section-title">Projects</div>
+                        <p>${data.projects}</p>
+                    </div>
+                </div>`;
+        } else {
+            // Topbar Layout logic
+            paper.style.padding = "60px";
+            paper.innerHTML = `
+                <div style="border-bottom: 5px solid ${theme.bg}; padding-bottom: 20px; margin-bottom: 30px">
+                    <h1 style="color: ${theme.bg}">${data.name}</h1>
+                    <p><strong>${data.email} | ${data.phone}</strong></p>
+                </div>
+                <div class="section-title" style="border-color: ${theme.bg}">Experience</div>
+                <p>${data.experience}</p>
+                <div class="section-title" style="border-color: ${theme.bg}">Projects</div>
+                <p>${data.projects}</p>
+                <div class="section-title" style="border-color: ${theme.bg}">Skills</div>
+                <p>${data.skills}</p>
+                <div class="section-title" style="border-color: ${theme.bg}">Education</div>
+                <p>${data.education}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
